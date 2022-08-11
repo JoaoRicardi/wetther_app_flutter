@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:weaather_flutter_app/src/core/base/base_page.dart';
-import 'package:weaather_flutter_app/src/core/client/http_client/http_client_imp.dart';
 
 class MyHomePage extends StatefulWidget with BasePage {
 
