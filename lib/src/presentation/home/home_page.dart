@@ -1,8 +1,10 @@
-
 import 'package:flutter/material.dart';
+import 'package:weaather_flutter_app/src/core/base/base_page.dart';
+import 'package:weaather_flutter_app/src/core/client/http_client/http_client_imp.dart';
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+class MyHomePage extends StatefulWidget with BasePage {
+
+  MyHomePage({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
@@ -11,7 +13,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
   int _counter = 0;
+
 
   void _incrementCounter() {
     setState(() {
