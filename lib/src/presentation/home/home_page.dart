@@ -13,40 +13,96 @@ class MyHomePage extends StatefulWidget with BasePage {
 
 class _MyHomePageState extends State<MyHomePage> {
 
-  int _counter = 0;
+  var minhasCidade = <String>[];
 
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+  Future<void> _showSearch() async {
+    var res = await showSearch(
+      context: context,
+      delegate: TheSearch(),
+    );
+
+    if(res != null && res.isEmpty) {
+      setState(() {
+        minhasCidade.add(res);
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
+      bottomNavigationBar: Padding(
+        padding: EdgeInsets.only(
+          left: 16,
+          right: 16,
+          bottom: MediaQuery.of(context).padding.bottom == 0.0 ? 32 : MediaQuery.of(context).padding.bottom
+        ),
+        child: InkWell(
+          onTap: _showSearch,
+          child: Container(
+            width: double.infinity,
+            height: 56,
+            color: Colors.black,
+          ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+    );
+  }
+
+}
+
+class TheSearch extends SearchDelegate<String> {
+
+  TheSearch();
+
+  final suggestions = [
+    "Silverstone, UK",
+    "São Paulo, Brazil",
+    "Melbourne, Australia",
+    "Monte Carlo, Monaco"
+  ];
+
+  @override
+  String get searchFieldLabel => "Procure pela cidade ou estado";
+
+  @override
+  List<Widget> buildActions(BuildContext context) {
+    return [
+      IconButton(
+        icon: const Icon(Icons.clear),
+        onPressed: () {
+          query = "";
+        },
+      )
+    ];
+  }
+
+  @override
+  Widget buildLeading(BuildContext context) {
+    return IconButton(
+      icon: AnimatedIcon(
+        icon: AnimatedIcons.menu_arrow,
+        progress: transitionAnimation,
       ),
+      onPressed: () {
+        close(context, "");
+      },
+    );
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    return SizedBox();
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    // final suggestions = query.isEmpty ? suggestions : [];
+    return ListView.builder(
+      itemCount: suggestions.length,
+      itemBuilder: (content, index) => ListTile(
+          title: Text(suggestions[index])),
     );
   }
 }
