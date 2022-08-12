@@ -39,16 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         child: ListView.builder(
           itemBuilder: (context, index){
-            return Padding(
-              padding: const EdgeInsets.only(
-                left: 16,right: 16,top: 16
-              ),
-              child: Container(
-                width: double.infinity,
-                height: 120,
-                color: Colors.red,
-              ),
-            );
+            return const HomeCard();
           }
         ),
       ),
@@ -69,5 +60,92 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
+}
 
+
+class HomeCard extends StatelessWidget {
+
+  const HomeCard({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(
+          left: 16,right: 16,top: 16
+      ),
+      child: Container(
+        width: double.infinity,
+        height: 120,
+        decoration: const BoxDecoration(
+            color: Colors.red,
+            borderRadius: BorderRadius.all(Radius.circular(16))
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildTopInfo(),
+            _buildBottomInfo()
+          ],
+        ),
+      ),
+    );
+  }
+
+
+  _buildTopInfo(){
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          vertical: 12,
+          horizontal: 20
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: const [
+            Text('São Paulo',
+              style: TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+                color: Colors.white
+              ),
+            ),
+            Text('32°',style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w400,
+              fontSize: 32
+            ),)
+          ],
+        ),
+      ),
+    );
+  }
+
+  _buildBottomInfo(){
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 20,
+        vertical: 12
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: const [
+          Text('Sunny',
+            style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
+                color: Colors.white
+            ),
+          ),
+          Text('51.50 | 3-0.12',style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w400,
+              fontSize: 14
+          ),)
+        ],
+      ),
+    );
+  }
 }
