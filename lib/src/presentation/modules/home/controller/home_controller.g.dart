@@ -33,14 +33,6 @@ mixin _$HomeController on _HomeController, Store {
     return _$initAsyncAction.run(() => super.init());
   }
 
-  late final _$addCityModelAsyncAction =
-      AsyncAction('_HomeController.addCityModel', context: context);
-
-  @override
-  Future addCityModel() {
-    return _$addCityModelAsyncAction.run(() => super.addCityModel());
-  }
-
   late final _$getWeatherForCityAsyncAction =
       AsyncAction('_HomeController.getWeatherForCity', context: context);
 

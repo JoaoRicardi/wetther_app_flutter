@@ -8,13 +8,6 @@ class WeatherModelSys {
   WeatherModelSys({
     this.type, this.id, this.country, this.sunrise, this.sunset
   });
-///"sys": {
-//         "type": 2,
-//         "id": 268730,
-//         "country": "GB",
-//         "sunrise": 1660192769,
-//         "sunset": 1660246327
-//     },
 
   WeatherModelSys.empty():
         type = null,

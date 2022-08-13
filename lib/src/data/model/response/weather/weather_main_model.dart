@@ -3,7 +3,7 @@ class WeatherMainModel {
   final double? feelsLike;
   final double? min;
   final double? max;
-  final double? humidity;
+  final int? humidity;
 
   WeatherMainModel({this.temp, this.feelsLike, this.min, this.max, this.humidity});
 
@@ -15,9 +15,9 @@ class WeatherMainModel {
       if(json != null){
         return WeatherMainModel(
           feelsLike: json["feels_like"],
-          humidity: json["temp_min"],
+          humidity: json["humidity"],
           max: json["temp_max"],
-          min: json["humidity"],
+          min: json["temp_min"],
           temp: json["temp"]
         );
       }

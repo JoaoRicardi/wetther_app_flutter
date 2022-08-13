@@ -1,6 +1,6 @@
 class HttpResponse {
   final int statusCode;
-  final Map<String, dynamic>? data;
+  final dynamic data;
   final Exception? exception;
 
   HttpResponse(

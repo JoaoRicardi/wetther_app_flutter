@@ -1,6 +1,6 @@
 class WeatherModelWind {
   final double? speed;
-  final double? deg;
+  final int? deg;
 
   WeatherModelWind({this.speed, this.deg});
 

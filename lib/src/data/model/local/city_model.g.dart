@@ -18,10 +18,10 @@ class CityModelAdapter extends TypeAdapter<CityModel> {
     };
     return CityModel(
       cityName: fields[0] as String,
-      tempMax: fields[2] as int,
-      temp: fields[1] as int,
+      tempMax: fields[2] as double,
+      temp: fields[1] as double,
       caption: fields[4] as String,
-      tempMin: fields[3] as int,
+      tempMin: fields[3] as double,
     );
   }
 

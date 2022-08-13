@@ -11,13 +11,13 @@ class CityModel extends HiveObject {
   String cityName;
 
   @HiveField(1)
-  int temp;
+  double temp;
 
   @HiveField(2)
-  int tempMax;
+  double tempMax;
 
   @HiveField(3)
-  int tempMin;
+  double tempMin;
 
   @HiveField(4)
   String caption;

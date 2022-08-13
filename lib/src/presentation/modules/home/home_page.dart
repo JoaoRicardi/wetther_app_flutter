@@ -52,10 +52,11 @@ class _MyHomePageState extends State<MyHomePage> with BasePage {
               itemBuilder: (context, index){
                 var city = _controller.storageCities![index];
                 return ListTile(
+                  title: Text(city.cityName),
                   onTap: (){
-                    navHandler.push(WeatherDetailPage.route);
+                    navHandler.push(WeatherDetailPage.route,arguments: city);
                   },
-                  leading: Text(city.cityName),
+                  leading: Text(city.temp.toString()),
                 );
               }
             );

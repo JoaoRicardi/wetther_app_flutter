@@ -15,9 +15,7 @@ class HomeInteractorImp implements IHomeInteractor {
   @override
   Future<List<CityModel>?> getUsersSavedLocations() async  {
     try{
-      var res = await _citiesRepository.getStorageCities();
-
-      print("interactior res: $res");
+      var res = _citiesRepository.getStorageCities();
 
       return res;
     }catch(err){
@@ -50,6 +48,7 @@ class HomeInteractorImp implements IHomeInteractor {
       debugPrint("HomeInteractorImp:getWeather  err:$err");
       return null;
     }
+    return null;
 
   }
 }
