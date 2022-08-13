@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:weaather_flutter_app/src/core/base/base_page.dart';
 import 'package:weaather_flutter_app/src/presentation/modules/detail/detail_page.dart';
+import 'package:weaather_flutter_app/src/presentation/modules/home/controller/home_controller.dart';
 import 'package:weaather_flutter_app/src/presentation/widgtes/search/search_delegate.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -14,6 +17,21 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> with BasePage {
+
+  late HomeController _controller;
+
+  @override
+  void dispose() {
+    Hive.box("cities").close();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    _controller = get()
+      ..init();
+    super.initState();
+  }
 
   var minhasCidade = <String>[];
 
@@ -37,13 +55,19 @@ class _MyHomePageState extends State<MyHomePage> with BasePage {
         padding: const EdgeInsets.only(
           bottom: 32
         ),
-        child: ListView.builder(
-          itemBuilder: (context, index){
-            return ListTile(
-              onTap: (){
-                navHandler.push(WeatherDetailPage.route);
-              },
-              leading: const Text("Nome cidade"),
+        child: Observer(
+          builder: (context) {
+            return ListView.builder(
+              itemCount: _controller.storageCities?.length ?? 0,
+              itemBuilder: (context, index){
+                var city = _controller.storageCities![index];
+                return ListTile(
+                  onTap: (){
+                    navHandler.push(WeatherDetailPage.route);
+                  },
+                  leading: Text(city.cityName),
+                );
+              }
             );
           }
         ),
@@ -57,7 +81,7 @@ class _MyHomePageState extends State<MyHomePage> with BasePage {
         child: InkWell(
           onTap: _showSearch,
           child: ElevatedButton(
-            onPressed: _showSearch,
+            onPressed: ()=> _controller.addCityModel(),
             child: Text('Add cidade'),
           ),
         ),
