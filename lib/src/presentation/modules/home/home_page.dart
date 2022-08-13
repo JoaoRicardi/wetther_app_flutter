@@ -20,11 +20,7 @@ class _MyHomePageState extends State<MyHomePage> with BasePage {
 
   late HomeController _controller;
 
-  @override
-  void dispose() {
-    Hive.box("cities").close();
-    super.dispose();
-  }
+
 
   @override
   void initState() {
