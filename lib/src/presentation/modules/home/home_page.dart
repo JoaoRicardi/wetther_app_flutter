@@ -20,8 +20,6 @@ class _MyHomePageState extends State<MyHomePage> with BasePage {
 
   late HomeController _controller;
 
-
-
   @override
   void initState() {
     _controller = get()
@@ -29,18 +27,14 @@ class _MyHomePageState extends State<MyHomePage> with BasePage {
     super.initState();
   }
 
-  var minhasCidade = <String>[];
-
   Future<void> _showSearch() async {
     var res = await showSearch(
       context: context,
       delegate: WeatherSearchDelegate(),
     );
 
-    if(res != null && res.isEmpty) {
-      setState(() {
-        minhasCidade.add(res);
-      });
+    if(res !=  null && res.isNotEmpty) {
+      await _controller.getWeatherForCity(res);
     }
   }
 
@@ -74,12 +68,9 @@ class _MyHomePageState extends State<MyHomePage> with BasePage {
           right: 16,
           bottom: MediaQuery.of(context).padding.bottom == 0.0 ? 32 : MediaQuery.of(context).padding.bottom
         ),
-        child: InkWell(
-          onTap: _showSearch,
-          child: ElevatedButton(
-            onPressed: ()=> _controller.addCityModel(),
-            child: Text('Add cidade'),
-          ),
+        child: ElevatedButton(
+          onPressed: ()=> _showSearch(),
+          child: Text('Add cidade'),
         ),
       ),
     );

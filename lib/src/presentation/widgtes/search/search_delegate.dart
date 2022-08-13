@@ -1,7 +1,8 @@
 
 import 'package:flutter/material.dart';
+import 'package:weaather_flutter_app/src/core/base/base_page.dart';
 
-class WeatherSearchDelegate extends SearchDelegate<String> {
+class WeatherSearchDelegate extends SearchDelegate<String> with BasePage {
 
   WeatherSearchDelegate();
 
@@ -42,15 +43,25 @@ class WeatherSearchDelegate extends SearchDelegate<String> {
 
   @override
   Widget buildResults(BuildContext context) {
-    return SizedBox();
+    var places = suggestions.where((sugest) => sugest.toLowerCase().contains(query.toLowerCase())).toList();
+    return ListView.builder(
+      itemCount: places.length,
+      itemBuilder: (content, index) => ListTile(
+        onTap: (){
+          navHandler.pop(places[index]);
+        },
+          title: Text(places[index])),
+    );
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    // final suggestions = query.isEmpty ? suggestions : [];
     return ListView.builder(
       itemCount: suggestions.length,
       itemBuilder: (content, index) => ListTile(
+          onTap: (){
+            navHandler.pop(suggestions[index]);
+          },
           title: Text(suggestions[index])),
     );
   }

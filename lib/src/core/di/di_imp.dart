@@ -10,6 +10,8 @@ import 'package:weaather_flutter_app/src/domain/interactors/home/home_interactor
 import 'package:weaather_flutter_app/src/domain/interactors/home/home_interactor_imp.dart';
 import 'package:weaather_flutter_app/src/domain/repository/cities/cities_repository.dart';
 import 'package:weaather_flutter_app/src/domain/repository/cities/cities_repository_imp.dart';
+import 'package:weaather_flutter_app/src/domain/repository/weather/weather_repository.dart';
+import 'package:weaather_flutter_app/src/domain/repository/weather/weather_repository_imp.dart';
 import 'package:weaather_flutter_app/src/presentation/modules/home/controller/home_controller.dart';
 
 class DIImp implements DI {
@@ -33,8 +35,9 @@ class DIImp implements DI {
 
   _registerDomainModule(){
     getIt.registerFactory<ICitiesRepository>(() => CitiesRepositoryImp(getIt()));
+    getIt.registerFactory<IWeatherRepository>(() => WeatherRepositoryImp(getIt()));
 
-    getIt.registerFactory<IHomeInteractor>(() => HomeInteractorImp(getIt()));
+    getIt.registerFactory<IHomeInteractor>(() => HomeInteractorImp(getIt(), getIt()));
   }
 
   _registerPresentationModule(){

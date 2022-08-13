@@ -41,6 +41,14 @@ abstract class _HomeController extends BaseController with Store {
     storageCities = res;
   }
 
+  @action
+  getWeatherForCity(String city)async{
+    var res = await _homeInteractor.getWeather(city) ;
+
+    print(res);
+
+  }
+
 }
 
 

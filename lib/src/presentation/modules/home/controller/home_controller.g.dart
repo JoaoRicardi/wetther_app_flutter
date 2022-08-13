@@ -41,6 +41,15 @@ mixin _$HomeController on _HomeController, Store {
     return _$addCityModelAsyncAction.run(() => super.addCityModel());
   }
 
+  late final _$getWeatherForCityAsyncAction =
+      AsyncAction('_HomeController.getWeatherForCity', context: context);
+
+  @override
+  Future getWeatherForCity(String city) {
+    return _$getWeatherForCityAsyncAction
+        .run(() => super.getWeatherForCity(city));
+  }
+
   @override
   String toString() {
     return '''

@@ -17,4 +17,8 @@ class HttpResponse {
     return HttpResponse(statusCode ,data: data);
   }
 
+
+  bool isSuccess(){
+    return statusCode > 199 && statusCode < 300;
+  }
 }
