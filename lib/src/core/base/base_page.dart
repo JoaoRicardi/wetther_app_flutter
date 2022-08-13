@@ -1,9 +1,14 @@
+import 'package:weaather_flutter_app/src/core/di/di.dart';
 import 'package:weaather_flutter_app/src/core/di/di_imp.dart';
+import 'package:weaather_flutter_app/src/core/navigation/navigation_handler.dart';
 
 class BasePage {
 
   T get<T extends Object>([String? instanceName]){
-    return DIImp().get(instanceName);
+    DI dependenciesInjection = DIImp();
+    return dependenciesInjection.get(instanceName);
   }
+
+  INavigationHandler get navHandler => get();
 
 }

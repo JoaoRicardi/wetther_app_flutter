@@ -4,9 +4,9 @@ import 'package:weaather_flutter_app/src/presentation/widgtes/search/search_dele
 
 class MyHomePage extends StatefulWidget with BasePage {
 
-  MyHomePage({Key? key, required this.title}) : super(key: key);
+  static const String route  = "/home";
 
-  final String title;
+  MyHomePage({Key? key}) : super(key: key);
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -38,8 +38,11 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         child: ListView.builder(
           itemBuilder: (context, index){
-            return const ListTile(
-              leading: Text("Nome cidade"),
+            return ListTile(
+              onTap: (){
+
+              },
+              leading: const Text("Nome cidade"),
             );
           }
         ),
