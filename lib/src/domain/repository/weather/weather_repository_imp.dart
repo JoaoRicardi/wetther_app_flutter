@@ -12,7 +12,7 @@ class WeatherRepositoryImp implements IWeatherRepository {
   Future<HttpResponse> getWeather(String cityName) async {
     try {
       var res = await _client.get(
-          "https://api.openweathermap.org/data/2.5/weather?q=$cityName&APPID=710273420e4626139ccd0011d4b0b861");
+          "/weather?q=$cityName");
 
       return HttpResponse.fromResponse(res.statusCode, data: res.data);
 
@@ -26,7 +26,7 @@ class WeatherRepositoryImp implements IWeatherRepository {
   Future<HttpResponse> getCityDetails(String city) async {
     try {
       var res = await _client.get(
-          "https://api.openweathermap.org/data/2.5/forecast?q=$city&APPID=710273420e4626139ccd0011d4b0b861"
+          "/forecast?q=$city"
       );
 
       return HttpResponse.fromResponse(res.statusCode, data: res.data);

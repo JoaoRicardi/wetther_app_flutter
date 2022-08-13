@@ -45,6 +45,8 @@ dev_dependencies:
 # gerar statemanagment
   mobx_codegen: ^2.0.6
 
+  mocktail: 0.1.4
+  http_mock_adapter: ^0.3.3
   flutter_lints: ^1.0.0
 
 flutter:
