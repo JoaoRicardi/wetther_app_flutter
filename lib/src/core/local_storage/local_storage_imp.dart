@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:weaather_flutter_app/src/core/local_storage/local_storage.dart';
 import 'package:weaather_flutter_app/src/data/model/local/city_model.dart';
@@ -15,23 +15,23 @@ class LocalStorageImp implements ILocalStorage {
   init()async  {
     try{
 
-      var path = await getPath();
-      Hive.init(path);
+      await Hive.initFlutter();
       Hive.registerAdapter(CityModelAdapter());
+      await Hive.openBox<CityModel>("cities");
+
     }catch(err){
       debugPrint("LocalStorageImp:init err:$err");
     }
   }
 
   @override
-  T? storeItem<T>(String dbName, T item, String key) {
+  List<T>? storeItem<T>(String dbName, T item) {
     try{
 
       var box = Hive.box<T>(dbName);
-      box.put(key, item);
-      var value = box.get(key);
-      box.close();
-      return value;
+      box.add(item);
+
+      return box.values.toList();
 
     }catch(err){
       debugPrint("LocalStorageImp:storeItem err:$err");
@@ -40,16 +40,10 @@ class LocalStorageImp implements ILocalStorage {
   }
 
   @override
-  Future<T?> getItem<T>(String dbName, String key) async  {
+  List<T>? getItem<T>(String dbName, String key)  {
     try{
-      var path = await getPath();
 
-      var box = await Hive.openBox<T>(dbName);
-
-      var getValue = box.get(key);
-      await box.close();
-
-      return getValue;
+      return Hive.box<T>(dbName).values.toList();
     }catch(err){
 
       debugPrint("LocalStorageImp:storeItem err:$err");

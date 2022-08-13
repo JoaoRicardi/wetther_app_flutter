@@ -3,7 +3,7 @@ abstract class ILocalStorage {
   ///metodo que inicializa o plugin
   init();
 
-  T? storeItem<T>(String dbName, T item, String key);
+  List<T>? storeItem<T>(String dbName, T item);
 
-  Future<T?> getItem<T>(String dbName, String key);
+  List<T>? getItem<T>(String dbName, String key);
 }

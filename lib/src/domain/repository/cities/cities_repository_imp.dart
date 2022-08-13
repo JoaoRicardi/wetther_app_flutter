@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:weaather_flutter_app/src/core/local_storage/local_storage.dart';
 import 'package:weaather_flutter_app/src/data/model/local/city_model.dart';
 import 'package:weaather_flutter_app/src/domain/repository/cities/cities_repository.dart';
@@ -15,13 +14,9 @@ class CitiesRepositoryImp implements ICitiesRepository {
 
 
   @override
-  Future<List<CityModel>?> getStorageCities() async  {
+  List<CityModel>? getStorageCities()   {
     try{
-      var box = Hive.box<CityModel>("cities");
-
-      return box.values.toList();
-
-      // return _localStorage.getItem<List<CityModel>>(tableName, citiesKey);
+      return _localStorage.getItem<CityModel>(tableName, citiesKey);
     }catch(err){
       debugPrint("CitiesRepositoryImp:addCityToStorage err:$err");
       return null;
@@ -29,22 +24,10 @@ class CitiesRepositoryImp implements ICitiesRepository {
   }
 
   @override
-  Future<List<CityModel>?> addCityToStorage(CityModel model) async {
+  List<CityModel>? addCityToStorage(CityModel model)  {
     try{
-      var box = Hive.box<CityModel>("cities");
-      box.add(model);
-      // var currentCities = await _localStorage.getItem<List<CityModel>>(tableName, citiesKey) ?? [];
-      //
-      // currentCities.add(model);
-      //
-      // var addTo = _localStorage.storeItem<List<CityModel>>(tableName, currentCities, citiesKey);
-      //
-      // if(addTo != null){
-      //   return currentCities;
-      // }
-      //
-      // return null;
-      return box.values.toList();
+      return _localStorage.storeItem(tableName, model);
+
     }catch(err){
       debugPrint("CitiesRepositoryImp:addCityToStorage err:$err");
       return null;
