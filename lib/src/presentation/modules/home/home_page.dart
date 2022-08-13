@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:weaather_flutter_app/src/core/base/base_page.dart';
+import 'package:weaather_flutter_app/src/presentation/modules/detail/detail_page.dart';
 import 'package:weaather_flutter_app/src/presentation/widgtes/search/search_delegate.dart';
 
-class MyHomePage extends StatefulWidget with BasePage {
+class MyHomePage extends StatefulWidget {
 
   static const String route  = "/home";
 
@@ -12,7 +13,7 @@ class MyHomePage extends StatefulWidget with BasePage {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with BasePage {
 
   var minhasCidade = <String>[];
 
@@ -40,7 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
           itemBuilder: (context, index){
             return ListTile(
               onTap: (){
-
+                navHandler.push(WeatherDetailPage.route);
               },
               leading: const Text("Nome cidade"),
             );

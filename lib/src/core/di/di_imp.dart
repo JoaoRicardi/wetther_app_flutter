@@ -18,7 +18,7 @@ class DIImp implements DI {
 
   _registerCoreModule(){
     getIt.registerFactory<IHttpClient>(() => HttpClient());
-    getIt.registerFactory<INavigationHandler>(() => NavigationHandler());
+    getIt.registerLazySingleton<INavigationHandler>(() => NavigationHandler());
   }
 
   @override
