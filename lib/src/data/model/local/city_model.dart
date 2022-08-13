@@ -1,11 +1,11 @@
 import 'package:hive/hive.dart';
 
-///Item que ficará salvo na home com itens cacheados em caso de falta de conexao
+///Item que ficará salvo na cities com itens cacheados em caso de falta de conexao
 ///e para atualizar o app novamente
-part 'weather_item.g.dart';
+part 'city_model.g.dart';
 
 @HiveType(typeId: 0)
-class WeatherItem extends HiveObject {
+class CityModel extends HiveObject {
 
   @HiveField(0)
   String cityName;
@@ -22,7 +22,7 @@ class WeatherItem extends HiveObject {
   @HiveField(4)
   String caption;
 
-  WeatherItem({
+  CityModel({
     required this.cityName,
     required this.tempMax,
     required this.temp,

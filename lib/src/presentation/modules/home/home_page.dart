@@ -5,7 +5,7 @@ import 'package:weaather_flutter_app/src/presentation/widgtes/search/search_dele
 
 class MyHomePage extends StatefulWidget {
 
-  static const String route  = "/home";
+  static const String route  = "/cities";
 
   MyHomePage({Key? key}) : super(key: key);
 
