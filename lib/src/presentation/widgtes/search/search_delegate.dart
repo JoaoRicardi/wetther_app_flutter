@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:weaather_flutter_app/src/core/base/base_page.dart';
 
-class WeatherSearchDelegate extends SearchDelegate<String> with BasePage {
+class WeatherSearchDelegate extends SearchDelegate<String> with BaseWidget {
 
   WeatherSearchDelegate();
 

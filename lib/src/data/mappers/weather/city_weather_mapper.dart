@@ -3,7 +3,7 @@ import 'package:weaather_flutter_app/src/data/model/response/weather/weather_res
 
 class CityWeatherMapper{
 
-  static CityModel fromWetaher(WeatherResponseModel model){
+  static CityModel fromWeather(WeatherResponseModel model){
 
     var temp = model.values;
 
@@ -19,6 +19,8 @@ class CityWeatherMapper{
         temp: temp?.temp ?? 0.0,
         tempMin: temp?.min ?? 0.0,
         caption: description,
+        lastUpdate: DateTime.now().toString(),
+        fullfilledValue: true
     );
   }
 

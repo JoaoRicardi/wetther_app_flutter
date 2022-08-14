@@ -17,7 +17,6 @@ class WeatherRepositoryImp implements IWeatherRepository {
       return HttpResponse.fromResponse(res.statusCode, data: res.data);
 
     } on Exception catch (err) {
-      debugPrint("WeatherRepositoryImp:getWeather err:$err");
       return HttpResponse.fromException(err);
     }
   }

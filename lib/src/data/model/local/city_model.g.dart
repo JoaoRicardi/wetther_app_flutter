@@ -22,13 +22,15 @@ class CityModelAdapter extends TypeAdapter<CityModel> {
       temp: fields[1] as double,
       caption: fields[4] as String,
       tempMin: fields[3] as double,
+      fullfilledValue: fields[5] as bool,
+      lastUpdate: fields[6] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, CityModel obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.cityName)
       ..writeByte(1)
@@ -38,7 +40,11 @@ class CityModelAdapter extends TypeAdapter<CityModel> {
       ..writeByte(3)
       ..write(obj.tempMin)
       ..writeByte(4)
-      ..write(obj.caption);
+      ..write(obj.caption)
+      ..writeByte(5)
+      ..write(obj.fullfilledValue)
+      ..writeByte(6)
+      ..write(obj.lastUpdate);
   }
 
   @override

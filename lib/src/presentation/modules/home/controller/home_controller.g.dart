@@ -25,21 +25,27 @@ mixin _$HomeController on _HomeController, Store {
     });
   }
 
-  late final _$initAsyncAction =
-      AsyncAction('_HomeController.init', context: context);
+  late final _$addCityNameToListAsyncAction =
+      AsyncAction('_HomeController.addCityNameToList', context: context);
 
   @override
-  Future init() {
-    return _$initAsyncAction.run(() => super.init());
+  Future addCityNameToList(String cityName) {
+    return _$addCityNameToListAsyncAction
+        .run(() => super.addCityNameToList(cityName));
   }
 
-  late final _$getWeatherForCityAsyncAction =
-      AsyncAction('_HomeController.getWeatherForCity', context: context);
+  late final _$_HomeControllerActionController =
+      ActionController(name: '_HomeController', context: context);
 
   @override
-  Future getWeatherForCity(String city) {
-    return _$getWeatherForCityAsyncAction
-        .run(() => super.getWeatherForCity(city));
+  dynamic init() {
+    final _$actionInfo = _$_HomeControllerActionController.startAction(
+        name: '_HomeController.init');
+    try {
+      return super.init();
+    } finally {
+      _$_HomeControllerActionController.endAction(_$actionInfo);
+    }
   }
 
   @override

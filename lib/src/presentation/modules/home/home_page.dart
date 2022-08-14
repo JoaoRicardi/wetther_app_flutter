@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:mobx/mobx.dart';
 import 'package:weaather_flutter_app/src/core/base/base_page.dart';
+import 'package:weaather_flutter_app/src/core/base/controller/base_controller.dart';
+import 'package:weaather_flutter_app/src/data/model/local/city_model.dart';
 import 'package:weaather_flutter_app/src/presentation/modules/detail/detail_page.dart';
 import 'package:weaather_flutter_app/src/presentation/modules/home/controller/home_controller.dart';
+import 'package:weaather_flutter_app/src/presentation/modules/home/widgets/home_list_with_value.dart';
+import 'package:weaather_flutter_app/src/presentation/widgtes/empty_state.dart';
+import 'package:weaather_flutter_app/src/presentation/widgtes/loading.dart';
 import 'package:weaather_flutter_app/src/presentation/widgtes/search/search_delegate.dart';
 
 class MyHomePage extends StatefulWidget {
-
-  static const String route  = "/cities";
+  static const String route = "/cities";
 
   MyHomePage({Key? key}) : super(key: key);
 
@@ -16,16 +20,46 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> with BasePage {
+class _MyHomePageState extends State<MyHomePage> with BaseWidget {
 
   late HomeController _controller;
+  late List<ReactionDisposer> _reactions;
 
   @override
   void initState() {
-    _controller = get()
-      ..init();
+    _controller = get()..init();
+    _reactions = [
+      reaction((_) => _controller.errorController.isError, (bool? hasError) async {
+        if(hasError != null && hasError){
+          await showDialog(
+            context: context,
+            builder: (context){
+              return AlertDialog(
+                content: SizedBox(
+                  height: 200,
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(Icons.error_outline, color: Colors.red,size: 44,),
+                        const SizedBox(height: 22,),
+                        Text(_controller.errorController.errorMessage ?? "")
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            }
+          );
+
+          _controller.errorController.resetErrors();
+        }
+      })
+    ];
+
     super.initState();
   }
+
 
   Future<void> _showSearch() async {
     var res = await showSearch(
@@ -33,47 +67,46 @@ class _MyHomePageState extends State<MyHomePage> with BasePage {
       delegate: WeatherSearchDelegate(),
     );
 
-    if(res !=  null && res.isNotEmpty) {
-      await _controller.getWeatherForCity(res);
+    if (res != null && res.isNotEmpty) {
+      await _controller.addCityNameToList(res);
     }
   }
 
   @override
+  void dispose() {
+    _reactions.map((e) => e.reaction.dispose()).toList();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.only(
-          bottom: 32
+    return WeatherLoading(
+      controller: _controller,
+      child: Scaffold(
+        body: Padding(
+          padding: const EdgeInsets.only(bottom: 32),
+          child: Observer(builder: (context) {
+            return (_controller.storageCities?.isNotEmpty ?? false)
+                ? HomeListWithValue(
+              homeController: _controller,
+            )
+                : const WeatherEmptyState();
+          }),
         ),
-        child: Observer(
-          builder: (context) {
-            return ListView.builder(
-              itemCount: _controller.storageCities?.length ?? 0,
-              itemBuilder: (context, index){
-                var city = _controller.storageCities![index];
-                return ListTile(
-                  title: Text(city.cityName),
-                  onTap: (){
-                    navHandler.push(WeatherDetailPage.route,arguments: city);
-                  },
-                  leading: Text(city.temp.toString()),
-                );
-              }
-            );
-          }
-        ),
-      ),
-      bottomNavigationBar: Padding(
-        padding: EdgeInsets.only(
-          left: 16,
-          right: 16,
-          bottom: MediaQuery.of(context).padding.bottom == 0.0 ? 32 : MediaQuery.of(context).padding.bottom
-        ),
-        child: ElevatedButton(
-          onPressed: ()=> _showSearch(),
-          child: Text('Add cidade'),
+        bottomNavigationBar: Padding(
+          padding: EdgeInsets.only(
+              left: 16,
+              right: 16,
+              bottom: MediaQuery.of(context).padding.bottom == 0.0
+                  ? 32
+                  : MediaQuery.of(context).padding.bottom),
+          child: ElevatedButton(
+            onPressed: () => _showSearch(),
+            child: const Text('Add cidade'),
+          ),
         ),
       ),
     );
   }
 }
+

@@ -22,11 +22,19 @@ class CityModel extends HiveObject {
   @HiveField(4)
   String caption;
 
+  @HiveField(5)
+  bool fullfilledValue;
+
+  @HiveField(6)
+  String lastUpdate;
+
   CityModel({
     required this.cityName,
     required this.tempMax,
     required this.temp,
     required this.caption,
-    required this.tempMin
+    required this.tempMin,
+    required this.fullfilledValue,
+    required this.lastUpdate
   });
 }

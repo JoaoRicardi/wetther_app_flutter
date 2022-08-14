@@ -10,7 +10,7 @@ class MyApp extends StatefulWidget {
   State<MyApp> createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> with BasePage {
+class _MyAppState extends State<MyApp> with BaseWidget {
 
   @override
   Widget build(BuildContext context)  {
