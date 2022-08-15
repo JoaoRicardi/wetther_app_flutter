@@ -4,10 +4,6 @@ class WeatherDescriptionModel {
   final String? description;
 
   WeatherDescriptionModel({this.id, this.main, this.description});
-///   "id": 800,
-//             "main": "Clear",
-//             "description": "clear sky",
-//             "icon": "01d"
 
   WeatherDescriptionModel.empty(): id = null, main = null, description = null;
 

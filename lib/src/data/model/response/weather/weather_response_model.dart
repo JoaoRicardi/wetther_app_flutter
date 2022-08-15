@@ -36,7 +36,7 @@ class WeatherResponseModel {
   static WeatherResponseModel? fromJson(Map<String, dynamic>? json){
     try{
       if(json != null) {
-        var weather =  WeatherResponseModel(
+        var weather = WeatherResponseModel(
             name: json["name"],
             base: json["base"],
             dt: json["dt"],
