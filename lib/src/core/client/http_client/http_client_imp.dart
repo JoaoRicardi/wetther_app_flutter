@@ -10,13 +10,13 @@ class HttpClient implements IHttpClient {
 
   final String baseUrl = "https://api.openweathermap.org/data/2.5";
 
-  HttpClient(){
-    _dio = Dio(
-      BaseOptions(
-        baseUrl: baseUrl,
-      )
-    )
-      ..interceptors.add(TokenInterceptor());
+  HttpClient({Dio? dio}){
+    var localDio =  Dio(
+        BaseOptions(
+          baseUrl: baseUrl,
+        )
+    )..interceptors.add(TokenInterceptor());
+    _dio = dio ?? localDio;
   }
 
   @override
@@ -32,4 +32,7 @@ class HttpClient implements IHttpClient {
       return HttpResponse.fromException(err);
     }
   }
+
+  @override
+  Dio get instance => _dio;
 }
