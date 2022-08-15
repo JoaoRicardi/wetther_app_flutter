@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:weaather_flutter_app/src/core/error/custom_exception.dart';
 import 'package:weaather_flutter_app/src/data/model/local/city_model.dart';
 import 'package:weaather_flutter_app/src/data/repository/cities/cities_repository_imp.dart';
 import 'package:weaather_flutter_app/src/domain/repository/cities/cities_repository.dart';
@@ -44,6 +45,15 @@ void main(){
       var listResult = citiesRepository.getStorageCities();
 
       expect(listResult?.isEmpty, true);
+    });
+
+    test('get cities from local db with empty return', (){
+      when(( ) => localStorage.getItem<CityModel>(tableName, citiesKey))
+          .thenThrow(CustomException(message: "Error"));
+
+
+
+      expect(() => citiesRepository.getStorageCities(), throwsA(isA<CustomException>()));
     });
   });
 }
