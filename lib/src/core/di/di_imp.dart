@@ -6,14 +6,14 @@ import 'package:weaather_flutter_app/src/core/local_storage/local_storage.dart';
 import 'package:weaather_flutter_app/src/core/local_storage/local_storage_imp.dart';
 import 'package:weaather_flutter_app/src/core/navigation/navigation_handler.dart';
 import 'package:weaather_flutter_app/src/core/navigation/navigation_handler_imp.dart';
+import 'package:weaather_flutter_app/src/data/repository/cities/cities_repository_imp.dart';
+import 'package:weaather_flutter_app/src/data/repository/weather/weather_repository_imp.dart';
 import 'package:weaather_flutter_app/src/domain/interactors/detail/detail_interactor.dart';
 import 'package:weaather_flutter_app/src/domain/interactors/detail/detail_interactor_imp.dart';
 import 'package:weaather_flutter_app/src/domain/interactors/home/home_interactor.dart';
 import 'package:weaather_flutter_app/src/domain/interactors/home/home_interactor_imp.dart';
 import 'package:weaather_flutter_app/src/domain/repository/cities/cities_repository.dart';
-import 'package:weaather_flutter_app/src/domain/repository/cities/cities_repository_imp.dart';
 import 'package:weaather_flutter_app/src/domain/repository/weather/weather_repository.dart';
-import 'package:weaather_flutter_app/src/domain/repository/weather/weather_repository_imp.dart';
 import 'package:weaather_flutter_app/src/presentation/modules/detail/controller/detail_controller.dart';
 import 'package:weaather_flutter_app/src/presentation/modules/home/controller/home_controller.dart';
 

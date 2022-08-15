@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:weaather_flutter_app/src/core/error/custom_exception.dart';
 import 'package:weaather_flutter_app/src/core/error/custom_exception_type.dart';
 import 'package:weaather_flutter_app/src/data/model/local/city_model.dart';
