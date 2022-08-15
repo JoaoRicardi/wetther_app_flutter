@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:weaather_flutter_app/src/core/error/custom_exception.dart';
 import 'package:weaather_flutter_app/src/data/model/response/weather/weather_response_model.dart';
 import 'package:weaather_flutter_app/src/domain/interactors/detail/detail_interactor.dart';
 import 'package:weaather_flutter_app/src/domain/repository/weather/weather_repository.dart';
@@ -19,11 +19,12 @@ class DetailInteractorImp implements IDetailInteractor {
 
         return _filterAvailableList(values ?? []);
       }
+      else{
+        throw CustomException(message: "Houve um erro de comunicação tente novamente.");
+      }
 
-      return null;
     }catch(err){
-      debugPrint("err:$err");
-      return null;
+      throw CustomException(message: "Houve um erro inesperado tente novamente.");
     }
   }
 

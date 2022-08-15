@@ -7,6 +7,7 @@ import 'package:weaather_flutter_app/src/data/model/local/city_model.dart';
 import 'package:weaather_flutter_app/src/presentation/modules/detail/detail_page.dart';
 import 'package:weaather_flutter_app/src/presentation/modules/home/controller/home_controller.dart';
 import 'package:weaather_flutter_app/src/presentation/modules/home/widgets/home_list_with_value.dart';
+import 'package:weaather_flutter_app/src/presentation/widgtes/custom_dialog.dart';
 import 'package:weaather_flutter_app/src/presentation/widgtes/empty_state.dart';
 import 'package:weaather_flutter_app/src/presentation/widgtes/loading.dart';
 import 'package:weaather_flutter_app/src/presentation/widgtes/search/search_delegate.dart';
@@ -34,20 +35,8 @@ class _MyHomePageState extends State<MyHomePage> with BaseWidget {
           await showDialog(
             context: context,
             builder: (context){
-              return AlertDialog(
-                content: SizedBox(
-                  height: 200,
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(Icons.error_outline, color: Colors.red,size: 44,),
-                        const SizedBox(height: 22,),
-                        Text(_controller.errorController.errorMessage ?? "")
-                      ],
-                    ),
-                  ),
-                ),
+              return CustomDialog(
+                message: _controller.errorController.errorMessage ?? "Erro inesperado",
               );
             }
           );

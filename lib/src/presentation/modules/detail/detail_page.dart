@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:mobx/mobx.dart';
 import 'package:weaather_flutter_app/src/core/base/base_page.dart';
 import 'package:weaather_flutter_app/src/data/model/local/city_model.dart';
 import 'package:weaather_flutter_app/src/presentation/modules/detail/controller/detail_controller.dart';
 import 'package:weaather_flutter_app/src/presentation/modules/detail/widgets/weather_item.dart';
+import 'package:weaather_flutter_app/src/presentation/widgtes/custom_dialog.dart';
 
 class WeatherDetailPage extends StatefulWidget {
   final CityModel city;
@@ -18,11 +20,34 @@ class WeatherDetailPage extends StatefulWidget {
 
 class _WeatherDetailPageState extends State<WeatherDetailPage> with BaseWidget {
   late DetailController _detailController;
+  late List<ReactionDisposer> _reactions;
 
   @override
   void initState() {
     _detailController = get()..init(widget.city);
+    _reactions = [
+      reaction((_) => _detailController.errorController.isError, (bool? hasError) async {
+        if(hasError != null && hasError){
+          await showDialog(
+              context: context,
+              builder: (context){
+                return CustomDialog(
+                  message: _detailController.errorController.errorMessage ?? "Erro inesperado",
+                );
+              }
+          );
+
+          _detailController.errorController.resetErrors();
+        }
+      })
+    ];
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _reactions.map((e) => e.reaction.dispose()).toList();
+    super.dispose();
   }
 
   @override
@@ -78,7 +103,9 @@ class _WeatherDetailPageState extends State<WeatherDetailPage> with BaseWidget {
             ),
             Expanded(
               child: Observer(builder: (context) {
-                return ListView.builder(
+                return _detailController.isLoading ? const Center(
+                  child: CircularProgressIndicator(),
+                ):ListView.builder(
                     scrollDirection: Axis.vertical,
                     itemCount: _detailController.values?.length ?? 0,
                     itemBuilder: (context, index) {
